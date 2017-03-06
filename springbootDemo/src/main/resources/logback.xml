@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+	<property name="log.base" value="${catalina.home}/logs/" />
+	<property name="pattern"
+		value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%X{traceNo}] [%X{sessionId}] %-5level [%thread] %logger{80} :%msg%n" />
+
+	<!-- 控制台输出 -->
+	<appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>${pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="root"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.base}/zm-jdbc-root.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base}/%d{yyyy-MM-dd}/zm-jdbc-root-%i.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>20MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="service"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.base}/zm-jdbc-service.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base}/%d{yyyy-MM-dd}/zm-jdbc-service-%i.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>20MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<!-- 日志过滤 -->
+	<logger name="org.springframework">
+		<level value="INFO" />
+	</logger>
+	<logger name="java.sql">
+		<level value="DEBUG" />
+	</logger>
+	<logger name="org.apache">
+		<level value="INFO" />
+	</logger>
+
+	<logger name="com.zm.web.service" additivity="false">
+		<level value="DEBUG" />
+		<appender-ref ref="service" />
+		<appender-ref ref="console" />
+	</logger>
+
+
+	<!--JDBC输出 -->
+	<appender name="jdbc"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.base}/zm-jdbc.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base}/%d{yyyy-MM-dd}/zm-jdbc-%i.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>30MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${pattern}</pattern>
+		</encoder>
+	</appender>
+
+	<logger name="org.jdbcdslog" additivity="false">
+		<level value="info" />
+		<appender-ref ref="jdbc" />
+	</logger>
+
+
+	<!-- root级别控制 -->
+	<root level="DEBUG">
+		<appender-ref ref="console" />
+		<appender-ref ref="root" />
+	</root>
+</configuration>  
