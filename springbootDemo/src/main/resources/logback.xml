@@ -80,6 +80,26 @@
 			<pattern>${pattern}</pattern>
 		</encoder>
 	</appender>
+	
+	
+	<!--错误日志输出 -->
+	<appender name="error"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>${log.base}/zm-error.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${log.base}/%d{yyyy-MM-dd}/zm-error-%i.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+			<maxHistory>30</maxHistory>
+			<TimeBasedFileNamingAndTriggeringPolicy
+				class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<MaxFileSize>30MB</MaxFileSize>
+			</TimeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>${pattern}</pattern>
+		</encoder>
+	</appender>
+	
 
 	<logger name="org.jdbcdslog" additivity="false">
 		<level value="info" />

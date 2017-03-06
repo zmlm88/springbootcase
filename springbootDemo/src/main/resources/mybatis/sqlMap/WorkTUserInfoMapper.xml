@@ -4,18 +4,13 @@
 	<resultMap id="BaseResultMap" type="com.zm.web.db.model.WorkTUserInfo">
 		<id column="ID" property="id" jdbcType="VARCHAR" />
 		<result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
-		<result column="LOGIN_PASSWORD" property="loginPassword"
-			jdbcType="VARCHAR" />
-		<result column="ENABLE_STATUS" property="enableStatus"
-			jdbcType="VARCHAR" />
-		<result column="RECORD_STATUS" property="recordStatus"
-			jdbcType="VARCHAR" />
+		<result column="LOGIN_PASSWORD" property="loginPassword" jdbcType="VARCHAR" />
+		<result column="ENABLE_STATUS" property="enableStatus" jdbcType="VARCHAR" />
+		<result column="RECORD_STATUS" property="recordStatus" jdbcType="VARCHAR" />
 		<result column="CREATE_USER" property="createUser" jdbcType="VARCHAR" />
 		<result column="CREATE_DATE" property="createDate" jdbcType="TIMESTAMP" />
-		<result column="LAST_UPDATE_USER" property="lastUpdateUser"
-			jdbcType="VARCHAR" />
-		<result column="LAST_UPDATE_DATE" property="lastUpdateDate"
-			jdbcType="TIMESTAMP" />
+		<result column="LAST_UPDATE_USER" property="lastUpdateUser" jdbcType="VARCHAR" />
+		<result column="LAST_UPDATE_DATE" property="lastUpdateDate" jdbcType="TIMESTAMP" />
 		<result column="VERSION" property="version" jdbcType="DECIMAL" />
 		<result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
 		<result column="SCHOOL_ID" property="schoolId" jdbcType="VARCHAR" />
@@ -24,28 +19,51 @@
 		<result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
 		<result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
 	</resultMap>
-	<resultMap id="ResultMapWithBLOBs" type="com.zm.web.db.model.WorkTUserInfo"
-		extends="BaseResultMap">
+	<resultMap id="ResultMapWithBLOBs" type="com.zm.web.db.model.WorkTUserInfo" extends="BaseResultMap">
 		<result column="MEMO" property="memo" jdbcType="LONGVARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
-		ID, LOGIN_NAME, LOGIN_PASSWORD, ENABLE_STATUS, RECORD_STATUS,
+		ID, LOGIN_NAME, LOGIN_PASSWORD, ENABLE_STATUS,
+		RECORD_STATUS,
 		CREATE_USER, CREATE_DATE,
-		LAST_UPDATE_USER, LAST_UPDATE_DATE, VERSION, ROLE_ID, SCHOOL_ID, USER_NAME, USER_EMAIL,
-		MOBILE, USER_TYPE
+		LAST_UPDATE_USER,
+		LAST_UPDATE_DATE, VERSION, ROLE_ID, SCHOOL_ID, USER_NAME, USER_EMAIL,
+		MOBILE,
+		USER_TYPE
 	</sql>
 	<sql id="Blob_Column_List">
 		MEMO
 	</sql>
 
-	<select id="findPageWorkTUserInfo" resultMap="ResultMapWithBLOBs"
-		parameterType="com.zm.web.configuration.mybatis.Page">
-		select * from work_t_user_info where ID = #{userId,jdbcType=VARCHAR}
+	<select id="findPageWorkTUserInfo" resultMap="ResultMapWithBLOBs" parameterType="com.zm.web.configuration.mybatis.Page">
+		select *
+		from work_t_user_info where ID =
+		#{userId,jdbcType=VARCHAR}
 	</select>
 
+	<!-- 2017.0306 mybatis 测试条件 -->
+	<select id="findPageTempCase" resultMap="ResultMapWithBLOBs" parameterType="com.zm.web.configuration.mybatis.Page">
+		select *
+		from work_t_user_info 
+		<where>
+			<if test="  userId  !=''  and userId !=null ">
+				AND id=#{userId,jdbcType=VARCHAR}
+			</if>
+			<if test=' userId == "1" '>
+				AND ENABLE_STATUS='启用'
+			</if>
+		</where>
+	</select>
+	<!-- 2017.0306 mybatis 测试条件 -->
 
-	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
-		parameterType="java.lang.String">
+
+
+
+
+
+
+
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
 		,
@@ -54,25 +72,40 @@
 		where ID = #{id,jdbcType=VARCHAR}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.String">
-		delete from work_t_user_info
-		where ID = #{id,jdbcType=VARCHAR}
+		delete from
+		work_t_user_info
+		where ID =
+		#{id,jdbcType=VARCHAR}
 	</delete>
 	<insert id="insert" parameterType="com.zm.web.db.model.WorkTUserInfo">
-		insert into work_t_user_info (ID, LOGIN_NAME, LOGIN_PASSWORD,
-		ENABLE_STATUS, RECORD_STATUS, CREATE_USER,
-		CREATE_DATE, LAST_UPDATE_USER, LAST_UPDATE_DATE,
-		VERSION, ROLE_ID, SCHOOL_ID,
+		insert into work_t_user_info
+		(ID, LOGIN_NAME,
+		LOGIN_PASSWORD,
+		ENABLE_STATUS,
+		RECORD_STATUS,
+		CREATE_USER,
+		CREATE_DATE, LAST_UPDATE_USER,
+		LAST_UPDATE_DATE,
+		VERSION,
+		ROLE_ID,
+		SCHOOL_ID,
 		USER_NAME, USER_EMAIL, MOBILE,
 		USER_TYPE, MEMO)
-		values (#{id,jdbcType=VARCHAR}, #{loginName,jdbcType=VARCHAR},
+		values
+		(#{id,jdbcType=VARCHAR},
+		#{loginName,jdbcType=VARCHAR},
 		#{loginPassword,jdbcType=VARCHAR},
-		#{enableStatus,jdbcType=VARCHAR}, #{recordStatus,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR},
+		#{enableStatus,jdbcType=VARCHAR},
+		#{recordStatus,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR},
 		#{createDate,jdbcType=TIMESTAMP}, #{lastUpdateUser,jdbcType=VARCHAR},
 		#{lastUpdateDate,jdbcType=TIMESTAMP},
-		#{version,jdbcType=DECIMAL}, #{roleId,jdbcType=VARCHAR}, #{schoolId,jdbcType=VARCHAR},
+		#{version,jdbcType=DECIMAL},
+		#{roleId,jdbcType=VARCHAR},
+		#{schoolId,jdbcType=VARCHAR},
 		#{userName,jdbcType=VARCHAR}, #{userEmail,jdbcType=VARCHAR},
 		#{mobile,jdbcType=VARCHAR},
-		#{userType,jdbcType=VARCHAR}, #{memo,jdbcType=LONGVARCHAR})
+		#{userType,jdbcType=VARCHAR},
+		#{memo,jdbcType=LONGVARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.zm.web.db.model.WorkTUserInfo">
 		insert into work_t_user_info
@@ -238,42 +271,78 @@
 		where ID = #{id,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zm.web.db.model.WorkTUserInfo">
-		update work_t_user_info
-		set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
-		LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
-		ENABLE_STATUS = #{enableStatus,jdbcType=VARCHAR},
-		RECORD_STATUS = #{recordStatus,jdbcType=VARCHAR},
-		CREATE_USER = #{createUser,jdbcType=VARCHAR},
-		CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-		LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
-		LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
-		VERSION = #{version,jdbcType=DECIMAL},
+		update
+		work_t_user_info
+		set LOGIN_NAME
+		= #{loginName,jdbcType=VARCHAR},
+		LOGIN_PASSWORD
+		= #{loginPassword,jdbcType=VARCHAR},
+		ENABLE_STATUS =
+		#{enableStatus,jdbcType=VARCHAR},
+		RECORD_STATUS
+		=
+		#{recordStatus,jdbcType=VARCHAR},
+		CREATE_USER =
+		#{createUser,jdbcType=VARCHAR},
+		CREATE_DATE =
+		#{createDate,jdbcType=TIMESTAMP},
+		LAST_UPDATE_USER =
+		#{lastUpdateUser,jdbcType=VARCHAR},
+		LAST_UPDATE_DATE =
+		#{lastUpdateDate,jdbcType=TIMESTAMP},
+		VERSION
+		=
+		#{version,jdbcType=DECIMAL},
 		ROLE_ID = #{roleId,jdbcType=VARCHAR},
-		SCHOOL_ID = #{schoolId,jdbcType=VARCHAR},
-		USER_NAME = #{userName,jdbcType=VARCHAR},
-		USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
-		MOBILE = #{mobile,jdbcType=VARCHAR},
-		USER_TYPE = #{userType,jdbcType=VARCHAR},
-		MEMO = #{memo,jdbcType=LONGVARCHAR}
+		SCHOOL_ID =
+		#{schoolId,jdbcType=VARCHAR},
+		USER_NAME =
+		#{userName,jdbcType=VARCHAR},
+		USER_EMAIL =
+		#{userEmail,jdbcType=VARCHAR},
+		MOBILE =
+		#{mobile,jdbcType=VARCHAR},
+		USER_TYPE =
+		#{userType,jdbcType=VARCHAR},
+		MEMO =
+		#{memo,jdbcType=LONGVARCHAR}
 		where ID = #{id,jdbcType=VARCHAR}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.zm.web.db.model.WorkTUserInfo">
-		update work_t_user_info
-		set LOGIN_NAME = #{loginName,jdbcType=VARCHAR},
-		LOGIN_PASSWORD = #{loginPassword,jdbcType=VARCHAR},
-		ENABLE_STATUS = #{enableStatus,jdbcType=VARCHAR},
-		RECORD_STATUS = #{recordStatus,jdbcType=VARCHAR},
-		CREATE_USER = #{createUser,jdbcType=VARCHAR},
-		CREATE_DATE = #{createDate,jdbcType=TIMESTAMP},
-		LAST_UPDATE_USER = #{lastUpdateUser,jdbcType=VARCHAR},
-		LAST_UPDATE_DATE = #{lastUpdateDate,jdbcType=TIMESTAMP},
-		VERSION = #{version,jdbcType=DECIMAL},
+		update
+		work_t_user_info
+		set LOGIN_NAME =
+		#{loginName,jdbcType=VARCHAR},
+		LOGIN_PASSWORD
+		= #{loginPassword,jdbcType=VARCHAR},
+		ENABLE_STATUS =
+		#{enableStatus,jdbcType=VARCHAR},
+		RECORD_STATUS
+		=
+		#{recordStatus,jdbcType=VARCHAR},
+		CREATE_USER =
+		#{createUser,jdbcType=VARCHAR},
+		CREATE_DATE =
+		#{createDate,jdbcType=TIMESTAMP},
+		LAST_UPDATE_USER =
+		#{lastUpdateUser,jdbcType=VARCHAR},
+		LAST_UPDATE_DATE =
+		#{lastUpdateDate,jdbcType=TIMESTAMP},
+		VERSION
+		=
+		#{version,jdbcType=DECIMAL},
 		ROLE_ID = #{roleId,jdbcType=VARCHAR},
-		SCHOOL_ID = #{schoolId,jdbcType=VARCHAR},
-		USER_NAME = #{userName,jdbcType=VARCHAR},
-		USER_EMAIL = #{userEmail,jdbcType=VARCHAR},
-		MOBILE = #{mobile,jdbcType=VARCHAR},
-		USER_TYPE = #{userType,jdbcType=VARCHAR}
-		where ID = #{id,jdbcType=VARCHAR}
+		SCHOOL_ID =
+		#{schoolId,jdbcType=VARCHAR},
+		USER_NAME =
+		#{userName,jdbcType=VARCHAR},
+		USER_EMAIL =
+		#{userEmail,jdbcType=VARCHAR},
+		MOBILE =
+		#{mobile,jdbcType=VARCHAR},
+		USER_TYPE =
+		#{userType,jdbcType=VARCHAR}
+		where ID =
+		#{id,jdbcType=VARCHAR}
 	</update>
 </mapper>
