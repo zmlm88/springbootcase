@@ -1,5 +1,6 @@
 package com.zm.web.controller;
 
+import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
@@ -19,6 +20,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.context.request.async.WebAsyncTask;
 
+import com.zm.web.configuration.mybatis.Page;
+import com.zm.web.configuration.mybatis.util.pageTemplate.MybatisPaginationCallback;
+import com.zm.web.configuration.mybatis.util.pageTemplate.MybatisPaginationTemplate;
 import com.zm.web.configuration.redis.ThreadExec;
 import com.zm.web.configuration.threadpool.ThreadPoolConfig;
 import com.zm.web.db.model.WorkTUserInfo;
@@ -145,12 +149,23 @@ public class DemoController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/findPage")
+	@RequestMapping(value = "/findPageTemp")
 	@ResponseBody
-	public String findPage() {
-		testService.findPage("1");
-		testService.selectByPrimaryKey("1");
-		return "ok";
+	public Page<WorkTUserInfo>  findPageTemp() {
+		return testService.findPageTemp("1");
 	}
-
+	
+	
+	/**
+	 * mybatis 测试
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/findPageTempCase")
+	@ResponseBody
+	public Page<WorkTUserInfo>  findPageTempCase() {
+		return testService.findPageTempCase("1");
+	}
+	
+	
 }

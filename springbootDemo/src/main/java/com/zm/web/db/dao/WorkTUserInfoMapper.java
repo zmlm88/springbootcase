@@ -22,5 +22,7 @@ public interface WorkTUserInfoMapper {
 
     int updateByPrimaryKey(WorkTUserInfo record);
     
-    List<WorkTUserInfo> findPageWorkTUserInfo(@Param("userId") String userId, Page page);  
+    List<WorkTUserInfo> findPageWorkTUserInfo(@Param("userId") String userId, Page<?> page); 
+    
+    List<WorkTUserInfo> findPageTempCase(@Param("userId") String userId,Page<?> page); 
 }

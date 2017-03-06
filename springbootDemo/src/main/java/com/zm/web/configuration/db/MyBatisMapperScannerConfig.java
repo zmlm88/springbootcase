@@ -1,8 +1,9 @@
 package com.zm.web.configuration.db;
 
 
+
 /**
- * 移动到DataSourceConfiguration
+ * 移动到DataSourceConfiguration中请见@MapperScan
  * @author zmlm88@126.com
  *
  */

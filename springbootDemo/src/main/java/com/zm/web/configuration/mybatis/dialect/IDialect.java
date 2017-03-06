@@ -7,5 +7,5 @@ import com.zm.web.configuration.mybatis.Page;
  *
  */
 public interface IDialect {
-	public String dialect(Page page,StringBuffer sqlBuffer);
+	public String dialect(Page<?> page,StringBuffer sqlBuffer);
 }
