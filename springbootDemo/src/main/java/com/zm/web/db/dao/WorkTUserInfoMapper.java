@@ -1,6 +1,7 @@
 package com.zm.web.db.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -25,4 +26,6 @@ public interface WorkTUserInfoMapper {
     List<WorkTUserInfo> findPageWorkTUserInfo(@Param("userId") String userId, Page<?> page); 
     
     List<WorkTUserInfo> findPageTempCase(@Param("userId") String userId,Page<?> page); 
+    
+    List<Map<String, Object>> selectMapByOper();
 }

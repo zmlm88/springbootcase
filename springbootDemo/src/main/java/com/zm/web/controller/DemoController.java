@@ -1,6 +1,7 @@
 package com.zm.web.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.concurrent.Future;
 
@@ -149,12 +150,11 @@ public class DemoController {
 	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/findPageTemp")
+	@RequestMapping(value = "/add")
 	@ResponseBody
-	public Page<WorkTUserInfo>  findPageTemp() {
-		return testService.findPageTemp("1");
+	public int  add() {
+		return testService.add();
 	}
-	
 	
 	/**
 	 * mybatis 测试
@@ -167,5 +167,9 @@ public class DemoController {
 		return testService.findPageTempCase("1");
 	}
 	
-	
+	@RequestMapping(value = "/selectMapByOper")
+	@ResponseBody
+	public List<Map<String, Object>> selectMapByOper(){
+		return testService.selectMapByOper();
+	}
 }

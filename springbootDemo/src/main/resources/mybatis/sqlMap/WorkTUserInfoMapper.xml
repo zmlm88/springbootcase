@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.zm.web.db.dao.WorkTUserInfoMapper">
+
+     <!-- Cache 配置 mybatis  -->
+    <cache
+        eviction="FIFO"
+        flushInterval="60000"
+        size="512"
+        readOnly="true" />
+
 	<resultMap id="BaseResultMap" type="com.zm.web.db.model.WorkTUserInfo">
 		<id column="ID" property="id" jdbcType="VARCHAR" />
 		<result column="LOGIN_NAME" property="loginName" jdbcType="VARCHAR" />
@@ -44,7 +52,7 @@
 	<!-- 2017.0306 mybatis 测试条件 -->
 	<select id="findPageTempCase" resultMap="ResultMapWithBLOBs" parameterType="com.zm.web.configuration.mybatis.Page">
 		select *
-		from work_t_user_info 
+		from work_t_user_info
 		<where>
 			<if test="  userId  !=''  and userId !=null ">
 				AND id=#{userId,jdbcType=VARCHAR}
@@ -57,11 +65,18 @@
 	<!-- 2017.0306 mybatis 测试条件 -->
 
 
-
-
-
-
-
+	<!-- 2017.0308 mybatis 测试条件 -->
+	<select id="selectMapByOper" resultType="java.util.Map">
+		SELECT CAI.ID AS ID,SI.STUDENT_NAME AS studentId
+		FROM WORK_T_CLASSES_APPLY_INFO CAI
+		INNER JOIN WORK_T_STUDENT_INFO SI ON CAI.APPLY_CUST_ID = SI.ID
+		INNER JOIN WORK_T_CLASSES_INFO CI ON CAI.APPLY_CLASSES_ID = CI.ID
+		INNER JOIN
+		WORK_T_SCHOOL_STAGE_INFO SSI ON CI.SCHOOL_GRADE_ID = SSI.ID
+		INNER JOIN WORK_T_PARAM_INFO PI ON PI.ID = CI.GRADE_ID
+		WHERE CAI.AUDIT_STATUS = '未处理'
+	</select>
+	<!-- 2017.0308 mybatis 测试条件 -->
 
 	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String">
 		select

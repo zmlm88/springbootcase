@@ -78,6 +78,8 @@ public class DataSourceConfiguration implements TransactionManagementConfigurer 
 		        //设置配置文件方言
 		        pageInterceptor.setProperties(PropertiesLoaderUtils.loadProperties(new ClassPathResource(Const.CONFIG_PROPERTIES)),new MySQLDialet());
 		        sessionFactory.setPlugins(new Interceptor[]{pageInterceptor});
+		        //设置setting文件
+		        sessionFactory.setConfigLocation(new ClassPathResource(Const.CONFIG_MYBATIS_LOCATION));
 		        return sessionFactory.getObject();
 	        } catch (Exception e) {
 	            e.printStackTrace();
@@ -88,7 +90,5 @@ public class DataSourceConfiguration implements TransactionManagementConfigurer 
 		public PlatformTransactionManager annotationDrivenTransactionManager() {
 			 return new DataSourceTransactionManager(dataSource());
 		}
-		
-		
 		
 }
