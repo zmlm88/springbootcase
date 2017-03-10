@@ -43,11 +43,13 @@ dependencies {
     compile("com.alibaba:druid:1.0.28")
 	compile("mysql:mysql-connector-java:5.1.6")
 	
-	
+	compile("org.sitemesh:sitemesh:3.0.0")
 	compile "org.apache.shiro:shiro-core:1.2.4"
 	compile "org.apache.shiro:shiro-web:1.2.4"
 	compile "org.apache.shiro:shiro-spring:1.2.4"
 	compile "org.apache.shiro:shiro-ehcache:1.2.4"
+		 providedRuntime("org.apache.tomcat.embed:tomcat-embed-jasper")
+     providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")		
 	
 	}
 
