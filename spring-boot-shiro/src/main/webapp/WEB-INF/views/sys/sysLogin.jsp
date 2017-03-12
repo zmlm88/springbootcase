@@ -1,22 +1,14 @@
-<%@ page contentType="text/html;charset=UTF-8" %>
-<%@ page import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"%>
+<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page
+	import="org.apache.shiro.web.filter.authc.FormAuthenticationFilter"%>
 <%@ include file="/WEB-INF/views/include/taglib.jsp"%>
 <html>
 <head>
-	<title>登录</title>
-	<meta name="decorator" content="blank"/>
-	<style type="text/css">
-      html,body,table{background-color:#f5f5f5;width:100%;text-align:center;}.form-signin-heading{font-family:Helvetica, Georgia, Arial, sans-serif, 黑体;font-size:36px;margin-bottom:20px;color:#0663a2;}
-      .form-signin{position:relative;text-align:left;width:300px;padding:25px 29px 29px;margin:0 auto 20px;background-color:#fff;border:1px solid #e5e5e5;
-        	-webkit-border-radius:5px;-moz-border-radius:5px;border-radius:5px;-webkit-box-shadow:0 1px 2px rgba(0,0,0,.05);-moz-box-shadow:0 1px 2px rgba(0,0,0,.05);box-shadow:0 1px 2px rgba(0,0,0,.05);}
-      .form-signin .checkbox{margin-bottom:10px;color:#0663a2;} .form-signin .input-label{font-size:16px;line-height:23px;color:#999;}
-      .form-signin .input-block-level{font-size:16px;height:auto;margin-bottom:15px;padding:7px;*width:283px;*padding-bottom:0;_padding:7px 7px 9px 7px;}
-      .form-signin .btn.btn-large{font-size:16px;} .form-signin #themeSwitch{position:absolute;right:15px;bottom:10px;}
-      .form-signin div.validateCode {padding-bottom:15px;} .mid{vertical-align:middle;}
-      .header{height:80px;padding-top:20px;} .alert{position:relative;width:300px;margin:0 auto;*padding-bottom:0px;}
-      label.error{background:none;width:270px;font-weight:normal;color:inherit;margin:0;}
-    </style>
-	<script type="text/javascript">
+<title>登录</title>
+<meta name="decorator" content="login" />
+
+
+<script type="text/javascript">
 		$(document).ready(function() {
 			$("#loginForm").validate({
 				rules: {
@@ -40,27 +32,92 @@
 	</script>
 </head>
 <body>
-	<!--[if lte IE 6]><br/><div class='alert alert-block' style="text-align:left;padding-bottom:10px;"><a class="close" data-dismiss="alert">x</a><h4>温馨提示：</h4><p>你使用的浏览器版本过低。为了获得更好的浏览体验，我们强烈建议您 <a href="http://browsehappy.com" target="_blank">升级</a> 到最新版本的IE浏览器，或者使用较新版本的 Chrome、Firefox、Safari 等。</p></div><![endif]-->
-	<div class="header">
-		<div id="messageBox" class="alert alert-error ${empty message ? 'hide' : ''}"><button data-dismiss="alert" class="close">×</button>
-			<label id="loginError" class="error">${message}</label>
+
+	<div class="loginMain newuseryd"
+		style="top: 50%; margin-top: -280.5px; height: 561px;">
+		
+		
+
+		
+
+		<div class="loginBox1">
+			<!-- logo 
+			<div class="logo" style="cursor: pointer"
+				onclick="#">
+				<img src="#">
+			</div>
+			-->
+			<h2>善林科技</h2>
+
+			<br/>
+
+			<div class="login-content ">
+				<div class="form">
+					<form id="loginFrm" action="http://user.ichunqiu.com/login/signin"
+						method="post" novalidate="novalidate">
+						
+					<div class="form-group clearfix" style="margin-bottom: 25px !important;">						
+						<div class="noticemsg">
+							  <div class="alert alert-danger">  
+								<button data-dismiss="alert" class="close">×</button>
+								<label id="loginError" class="error">1212121</label>
+							</div>
+						</div>
+							<div class="errorMsg" align="left"></div>
+					</div>	
+						
+						<div class="form-group clearfix" >
+							<div class="usernameBox">
+								<span class="glyphicon glyphicon-user"></span> <em></em>  
+								<input style="display:none" type="text"/>
+								<input style="display:none" type="password"/>
+<input type="text" autocomplete="off" maxlength="60" name="username" class="form-control required" id="username" placeholder="手机号/工号"/>									
+									
+							</div>
+						
+						</div>
+						<div class="form-group clearfix">
+							<div class="passwordBox">
+								<span class="glyphicon glyphicon-lock"></span> <em></em>
+								<input type="password" autocomplete="off" maxlength="60" name="password" class="form-control required" id="password" placeholder="请输入密码">
+								
+							</div>
+							<div class="errorMsg" align="left"></div>
+						</div>
+
+
+						<!--自动登录以及忘记密码-->
+						<div class="form-group clearfix"
+							style="margin-bottom: 5px !important;">
+							<div class="checkbox">
+								<label> <input type="checkbox" name="rem" value="1">下次自动登录
+								</label> <span class="pull-right"><a
+									href="http://user.ichunqiu.com/login/findpwd">忘记密码？</a></span>
+							</div>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn loginBtn">登录</button>
+						</div>
+						<div class="form-group reminderDiv">
+							<p style="color: #333; font-size: 14px;">
+								还没有账号？<a style="font-size: 14px;"
+									href="http://user.ichunqiu.com/register/index"
+									class="nowRegister">立即注册</a> <span id="http_referer"
+									style="display: none">http://www.ichunqiu.com/</span>
+							</p>
+						</div>
+					</form>
+
+
+				</div>
+			</div>
+		</div>
+		<div class="copyrights">
+		Copyright &copy;  - Powered By  善林科技
 		</div>
 	</div>
-	<form id="loginForm" class="form-signin" action="${ctx}/login" method="post">
-		<label class="input-label" for="username">登录名</label>
-		<input type="text" id="username" name="username" class="input-block-level required" value="${username}">
-		<label class="input-label" for="password">密码</label>
-		<input type="password" id="password" name="password" class="input-block-level required">
-		<c:if test="${isValidateCodeLogin}"><div class="validateCode">
-			<label class="input-label mid" for="validateCode">验证码</label>
-			<sys:validateCode name="validateCode" inputCssStyle="margin-bottom:0;"/>
-		</div></c:if><%--
-		<label for="mobile" title="手机登录"><input type="checkbox" id="mobileLogin" name="mobileLogin" ${mobileLogin ? 'checked' : ''}/></label> --%>
-		<input class="btn btn-large btn-primary" type="submit" value="登 录"/>&nbsp;&nbsp;
-		<label for="rememberMe" title="下次不需要再登录"><input type="checkbox" id="rememberMe" name="rememberMe" ${rememberMe ? 'checked' : ''}/> 记住我（公共场所慎用）</label>
-	</form>
-	<div class="footer">
-	</div>
+
+
 	<script src="${ctxStatic}/flash/zoom.min.js" type="text/javascript"></script>
 </body>
 </html>

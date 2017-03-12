@@ -101,6 +101,12 @@
 	</appender>
 	
 
+   <logger name="errorLog" level="INFO" additivity="false">  
+        <appender-ref ref="error" />  
+    </logger>  
+   
+
+
 	<logger name="org.jdbcdslog" additivity="false">
 		<level value="info" />
 		<appender-ref ref="jdbc" />

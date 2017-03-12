@@ -28,8 +28,8 @@
   	
     <jdbcConnection 
     	driverClass="com.mysql.jdbc.Driver" 
-    	connectionURL="jdbc:mysql://192.16.150.216:3306/edu" 
-    	userId="work" password="work" />
+    	connectionURL="jdbc:mysql://192.16.3.72:3306/shirodb" 
+    	userId="shiro" password="123456qw" />
 
     <!-- java类型处理器 
         用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
@@ -68,7 +68,7 @@
          -->
     </javaClientGenerator>
     
-    <table schema="edu" tableName="work_t_user_info" 
+    <table schema="edu" tableName="t_menu" 
     	enableCountByExample="false" enableUpdateByExample="false" 
     	enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <!-- <columnOverride column="???" property="???" /> -->

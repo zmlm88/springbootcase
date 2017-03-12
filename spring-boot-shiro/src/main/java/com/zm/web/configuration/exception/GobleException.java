@@ -23,11 +23,11 @@ import com.zm.web.vo.ResultVo;
 @EnableWebMvc
 public class GobleException {
 
-	Logger log = LoggerFactory.getLogger("error");
+	Logger log = LoggerFactory.getLogger("errorLog");
 	
 	@ExceptionHandler(value = { Exception.class,ServletException.class })
 	public ResultVo handleConflict(HttpServletRequest req, Exception e) throws IOException {
-		ResultVo rv = new ResultVo();
+		ResultVo rv = new ResultVo(false);
 		log.info(String.format("错误信息==请求资源:【%s】,请求方式【%s】,请求参数【%s】", req.getRequestURI(),req.getMethod(),getParam(req)),e);
 		e.printStackTrace();
 		return rv;
