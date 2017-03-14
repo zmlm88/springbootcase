@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zm.web.db.dao.TMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.zm.web.db.model.TMenu" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="parentid" property="parentid" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="href" property="href" jdbcType="VARCHAR" />
+    <result column="isShow" property="isshow" jdbcType="INTEGER" />
+    <result column="permission" property="permission" jdbcType="VARCHAR" />
+    <result column="seat" property="seat" jdbcType="VARCHAR" />
+    <result column="target" property="target" jdbcType="VARCHAR" />
+    <result column="order_menu" property="orderMenu" jdbcType="INTEGER" />
+    <result column="icon" property="icon" jdbcType="VARCHAR" />
+    <result column="attr2" property="attr2" jdbcType="VARCHAR" />
+    <result column="attr3" property="attr3" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, parentid, name, href, isShow, permission, seat, target, order_menu, icon, attr2, 
+    attr3
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_menu
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_menu
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zm.web.db.model.TMenu" >
+    insert into t_menu (id, parentid, name, 
+      href, isShow, permission, 
+      seat, target, order_menu, 
+      icon, attr2, attr3)
+    values (#{id,jdbcType=VARCHAR}, #{parentid,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{href,jdbcType=VARCHAR}, #{isshow,jdbcType=INTEGER}, #{permission,jdbcType=VARCHAR}, 
+      #{seat,jdbcType=VARCHAR}, #{target,jdbcType=VARCHAR}, #{orderMenu,jdbcType=INTEGER}, 
+      #{icon,jdbcType=VARCHAR}, #{attr2,jdbcType=VARCHAR}, #{attr3,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zm.web.db.model.TMenu" >
+    insert into t_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="parentid != null" >
+        parentid,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="href != null" >
+        href,
+      </if>
+      <if test="isshow != null" >
+        isShow,
+      </if>
+      <if test="permission != null" >
+        permission,
+      </if>
+      <if test="seat != null" >
+        seat,
+      </if>
+      <if test="target != null" >
+        target,
+      </if>
+      <if test="orderMenu != null" >
+        order_menu,
+      </if>
+      <if test="icon != null" >
+        icon,
+      </if>
+      <if test="attr2 != null" >
+        attr2,
+      </if>
+      <if test="attr3 != null" >
+        attr3,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null" >
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="permission != null" >
+        #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="seat != null" >
+        #{seat,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMenu != null" >
+        #{orderMenu,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        #{attr3,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zm.web.db.model.TMenu" >
+    update t_menu
+    <set >
+      <if test="parentid != null" >
+        parentid = #{parentid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null" >
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="isshow != null" >
+        isShow = #{isshow,jdbcType=INTEGER},
+      </if>
+      <if test="permission != null" >
+        permission = #{permission,jdbcType=VARCHAR},
+      </if>
+      <if test="seat != null" >
+        seat = #{seat,jdbcType=VARCHAR},
+      </if>
+      <if test="target != null" >
+        target = #{target,jdbcType=VARCHAR},
+      </if>
+      <if test="orderMenu != null" >
+        order_menu = #{orderMenu,jdbcType=INTEGER},
+      </if>
+      <if test="icon != null" >
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="attr2 != null" >
+        attr2 = #{attr2,jdbcType=VARCHAR},
+      </if>
+      <if test="attr3 != null" >
+        attr3 = #{attr3,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zm.web.db.model.TMenu" >
+    update t_menu
+    set parentid = #{parentid,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR},
+      isShow = #{isshow,jdbcType=INTEGER},
+      permission = #{permission,jdbcType=VARCHAR},
+      seat = #{seat,jdbcType=VARCHAR},
+      target = #{target,jdbcType=VARCHAR},
+      order_menu = #{orderMenu,jdbcType=INTEGER},
+      icon = #{icon,jdbcType=VARCHAR},
+      attr2 = #{attr2,jdbcType=VARCHAR},
+      attr3 = #{attr3,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  
+     <select id="selectMenuByUser" resultMap="BaseResultMap">
+		select
+		<include refid="Base_Column_List" />
+		from t_menu t where t.ID in(select tt.menu_id from t_role_menu tt
+		where tt.role_id in (select tur.role_id from t_user_role tur where
+		tur.user_id = #{userId})) order by id asc,order_menu asc
+	</select>
+  
+  
+</mapper>
