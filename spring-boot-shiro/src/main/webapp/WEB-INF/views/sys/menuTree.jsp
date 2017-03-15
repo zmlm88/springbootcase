@@ -31,7 +31,7 @@
 	<c:set var="menuList" value="${menuTree}" />
 	<c:set var="firstMenu" value="true" />
 	<c:forEach items="${menuList}" var="menu" varStatus="idxStatus">
-		<c:if test="${menu.tMenu.parentid eq (not empty param.parentId ? param.parentId:1)&&  menu.tMenu.isshow == 1}">
+		<c:if test="${menu.tMenu.isshow == 1}">
 			<div class="accordion-group">
 				<div class="accordion-heading">
 					<a class="accordion-toggle" data-toggle="collapse" data-parent="#menu-${menu.tMenu.parentid}"

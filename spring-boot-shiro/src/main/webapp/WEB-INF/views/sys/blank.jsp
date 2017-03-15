@@ -8,6 +8,7 @@
 .container {
 	display: table;
 	height: 100%;
+	margin-top:20%
 }
 
 .row {
@@ -28,15 +29,19 @@
 </style>
 </head>
 <body>
-
-
+ 
+	 
 	<div class="container">
 		<div class="row row-centered">
-			<div class=" col-md-6 col-centered">
+			<div class=" col-md-30 col-centered">
 				<h1>善林金融,上善若水,善者如林</h1>
 			</div>
 		</div>
 	</div>
+
+
+   
+ 
 
 
 </body>

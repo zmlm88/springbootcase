@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
+import com.zm.web.configuration.mybatis.Page;
+import com.zm.web.configuration.mybatis.util.pageTemplate.MybatisPaginationCallback;
 import com.zm.web.configuration.shiro.MyShiroRealm.ShiroUser;
 import com.zm.web.cst.Const;
 import com.zm.web.db.model.TMenu;
@@ -55,4 +57,19 @@ public class TUserMapperService extends BaseService {
 		return Const.RETURN_STATUS.NODATA.getIndex();
 	}
 
+	/**
+	 * 查询分页信息
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public Page<TUser> selectByUserPage(final String userId,int pageNo,int pageCount){
+		Page<TUser> page = (Page<TUser>)mybatisPaginationTemplate.setStartAndLength(pageNo, pageCount).execute(new MybatisPaginationCallback() {
+			public <T> List<T> doPagination(Page<?> page) {
+				return (List<T>) tUserMapper.selectByUserPage(userId, page);
+			}
+		});
+		return page;
+	}
+	
 }

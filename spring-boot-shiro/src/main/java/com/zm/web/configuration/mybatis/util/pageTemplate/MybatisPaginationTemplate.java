@@ -29,7 +29,7 @@ public class MybatisPaginationTemplate {
 	public <T> Page<?> execute(MybatisPaginationCallback action) {
 		Page<T> page = new Page<T>(pageNo, pageCount);
 		List<T> resultList = action.doPagination(page);
-		page.setResultList(resultList);
+		page.setRows(resultList);
 		return page;
 	}
 

@@ -49,12 +49,18 @@ public class LoginController extends BaseController {
 	public String home(Model model) {
 		boolean hasLogged = SecurityUtils.getSubject().isAuthenticated();
 		if (hasLogged) {
-			ShiroUser userInfo = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-			ModeList modeList = userInfo.getModeList();
-			if (!StringUtils.isEmpty(modeList)) {
-				model.addAttribute("modeList", modeList);
+			try{
+				ShiroUser userInfo = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+				ModeList modeList = userInfo.getModeList();
+				if (!StringUtils.isEmpty(modeList)) {
+					model.addAttribute("modeList", modeList);
+				}
+				return "/sys/sysIndex";
+			}catch(Exception e){
+				e.printStackTrace();
+				return "/sys/sysLogin";
 			}
-			return "/sys/sysIndex";
+
 		}
 		return "/sys/sysLogin";
 	}
@@ -80,11 +86,6 @@ public class LoginController extends BaseController {
 			// 所以这一步在调用login(token)方法时,它会走到MyRealm.doGetAuthenticationInfo()方法中,具体验证方式详见此方法
 			logger.info("验证开始");
 			currentUser.login(token);
-
-			// 设置缓存信息
-			ShiroUser shiroUser = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-			tUserMapperService.addCacheShirUser(shiroUser);
-
 			logger.info("验证通过");
 		} catch (UnknownAccountException uae) {
 			logger.info("验证未通过,未知账户");
@@ -107,6 +108,10 @@ public class LoginController extends BaseController {
 		// 验证是否登录成功
 		if (currentUser.isAuthenticated()) {
 			logger.info("用户[" + username + "]登录认证通过(这里可以进行一些认证通过后的一些系统参数初始化操作)");
+			// 设置缓存信息
+			ShiroUser shiroUser = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+			tUserMapperService.addCacheShirUser(shiroUser);
+			
 			return "redirect:/sys/web/home";
 		} else {
 			token.clear();

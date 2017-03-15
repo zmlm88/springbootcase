@@ -1,6 +1,8 @@
 package com.zm.web.db.model;
 
-public class TMenu {
+import java.io.Serializable;
+
+public class TMenu implements Serializable{
     private String id;
 
     private String parentid;

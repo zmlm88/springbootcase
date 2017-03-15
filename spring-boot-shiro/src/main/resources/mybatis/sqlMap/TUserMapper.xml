@@ -24,6 +24,20 @@
   
   
   
+  	<select id="selectByUserPage" resultMap="BaseResultMap" parameterType="com.zm.web.configuration.mybatis.Page">
+		select 
+ 		<include refid="Base_Column_List" />
+		from t_user
+	   <where>
+	    <if test=" null != userName and '' != userName">
+	    	and user_name like "%"#{userName,jdbcType=VARCHAR}"%"
+	    </if>
+	   </where>		
+	   order by user_name DESC
+	</select>
+  
+  
+  
   
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >

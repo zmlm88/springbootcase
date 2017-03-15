@@ -19,18 +19,41 @@ public class Page<T> {
 	/** 总记录条数 */
 	protected int totalCount = -1;
 
+	protected int total = -1;
+	
+
 	/** 用于存放查询结果 */
-	protected List<T> resultList;
+	protected List<T> rows;
+	
+	
+	
 	/** 用于存放查询结果 */
 	protected HashMap<String,Object>  other = new HashMap<String,Object>();
 
+	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public List<T> getRows() {
+		return rows;
+	}
+
+	public void setRows(List<T> rows) {
+		this.rows = rows;
+	}
+
 	public Page(int pageNo, int pageCount) {
-		if (pageNo <= 0) {
-			throw new IllegalArgumentException("pageNo must be greater than 0.");
-		}
-		if (pageCount <= 0) {
-			throw new IllegalArgumentException("pageCount must be greater than 0.");
-		}
+//		if (pageNo <= 0) {
+//			throw new IllegalArgumentException("pageNo must be greater than 0.");
+//		}
+//		if (pageCount <= 0) {
+//			throw new IllegalArgumentException("pageCount must be greater than 0.");
+//		}
 		this.pageNo = pageNo;
 		this.pageCount = pageCount;
 	}
@@ -48,6 +71,7 @@ public class Page<T> {
 	}
 
 	public void setTotalCount(int totalCount) {
+		this.total = totalCount;
 		this.totalCount = totalCount;
 		if (totalCount < 0) { // 如果总数为负数, 表未设置
 			totalPage = 0;
@@ -56,11 +80,5 @@ public class Page<T> {
 		}
 	}
 
-	public List<T> getResultList() {
-		return resultList;
-	}
-
-	public void setResultList(List<T> resultList) {
-		this.resultList = resultList;
-	}
+ 
 }

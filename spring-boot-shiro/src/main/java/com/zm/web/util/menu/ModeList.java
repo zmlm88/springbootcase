@@ -1,5 +1,6 @@
 package com.zm.web.util.menu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
@@ -14,7 +15,7 @@ import com.zm.web.db.model.TMenu;
  * @author zhumin
  *
  */
-public class ModeList {
+public class ModeList implements Serializable{
 
 	private static Lock lock = new ReentrantLock();
 

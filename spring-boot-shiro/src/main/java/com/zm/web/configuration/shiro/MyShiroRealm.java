@@ -51,6 +51,7 @@ public class MyShiroRealm extends AuthorizingRealm {
 		if (!listTMenu.isEmpty()) {
 			SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
 			for (TMenu tmenu : listTMenu) {
+				System.out.println(tmenu.getPermission());
 				info.addStringPermission(tmenu.getPermission());
 			}
 			return info;

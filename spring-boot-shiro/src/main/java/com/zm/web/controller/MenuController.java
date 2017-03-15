@@ -34,7 +34,7 @@ public class MenuController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value = "/tree", method = RequestMethod.GET)
-	public String tree(@RequestParam("parentId") String parentId, Model model) {
+	public String tree(@RequestParam("parentId") final String parentId, Model model) {
 		ShiroUser shiroUser = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
 		List<ModeList> listMode = tMenuMapperService.findTMenuByParentId(parentId, shiroUser);
 		model.addAttribute("menuTree", listMode);
