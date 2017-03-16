@@ -6,3 +6,5 @@
 4.spring boot shiro         集成                 【完成】<br/> 
 5.使用devtools 进行项目开发阶段的热部署     【完成】<br/> 
 6.springboot+mybatis+bootstraptable 集成 【完成】<br/> 
+7.用jsptaglib 简易封装bootstraptable      【完成】<br/> 
+联系方式:zmlm88@126.com    码农zmlm88
