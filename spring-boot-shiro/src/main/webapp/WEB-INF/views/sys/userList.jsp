@@ -7,43 +7,31 @@
 	<meta name="decorator" content="default"/>
        <script type="text/javascript">
 		$(function () {
-		 	initTable();
 		 	$("#search").bind("click", initTable);		 	
 		});
-		function queryParams(pageReqeust){
-			pageReqeust.userName=$("#userName").val();
-			pageReqeust.pageNumber=this.pageNumber;
-			return pageReqeust;
-		}
-		function initTable(){
-			$('#cusTable').bootstrapTable('destroy');
-			$("#cusTable").bootstrapTable({
-				pagination: true,
-				sidePagination: 'server',
-				method:"post",
-				url:"<c:url value='/web/sys/user/list'/>",
-			    queryParams:queryParams,
-				 onLoadSuccess: function(data){  //加载成功时执行
-					 // alert("加载成功"+data);
-				 },
-				 onLoadError: function(){  //加载失败时执行
-					 // layer.msg("加载数据失败", {time : 1500, icon : 2});
-				 },
-	            columns: [           
-	                      {
-	                    	  field: 'id',
-	                          title: '用户ID',
-	                          align: 'center'
-	                      },
-	                      {
-	                    	  field: 'userName',
-	                          title: '用户名',
-	                          align: 'center'
-	                      }	                      
-	           ]
-				           
-			});
-		}
+ 
+	 <tableTagBootStarp:table id="cusTable">
+		<btables>    
+	    	 <btable url="<c:url value='/web/sys/user/list'/>" onLoadSuccess="" id="cusTable" onLoadError=""  queryParams="queryParams" tableFunName="initTable">
+	    	 	<columns>
+	    	 		<column field="id" title="用户ID" align="center" formatter=""/>
+	    	 		<column field="userName" title="用户名" align="center" formatter=""/>
+	    	 		<column field="oper" title="操作" align="center" formatter="operFormatter"/>
+	    	 	</columns>
+	    	 	<queryParams>
+	    	 		<queryParam name="userName"/>
+	    	 	</queryParams>
+	    	 </btable>
+    	 </btables>
+    </tableTagBootStarp:table>		
+    
+    function operFormatter(){
+    	
+    	
+    }
+    
+    
+		
 	</script>	
 	
 	

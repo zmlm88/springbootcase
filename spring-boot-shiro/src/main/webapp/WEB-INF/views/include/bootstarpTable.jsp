@@ -3,8 +3,6 @@
 <script src="${ctxStatic}/bootstrapTable/dist/bootstrap-table.js" type="text/javascript"></script>
 <script src="${ctxStatic}/bootstrapTable/dist/locale/bootstrap-table-zh-CN.js" type="text/javascript"></script>
 <style>
-
-
 /* Base class */
 .bs-form-title {
   position: relative;

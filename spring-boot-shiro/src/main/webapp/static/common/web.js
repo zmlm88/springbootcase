@@ -1,10 +1,3 @@
-/*!
- * Copyright &copy; 2012-2016 <a href="https://github.com/thinkgem/jeesite">JeeSite</a> All rights reserved.
- * 
- * 通用公共方法
- * @author ThinkGem
- * @version 2014-4-29
- */
 $(document).ready(function() {
 	try{
 		// 链接去掉虚框
