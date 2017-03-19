@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration >
+
+  <classPathEntry location="D:\work\gradle\caches\modules-2\files-2.1\mysql\mysql-connector-java\5.1.6\380ef5226de2c85ff3b38cbfefeea881c5fce09d\mysql-connector-java-5.1.6.jar"/>
+ 
+  <context id="context1" >
+
+    <!-- 自动识别数据库关键字，默认false，如果设置为true，根据SqlReservedWords中定义的关键字列表；
+        一般保留默认值，遇到数据库关键字（Java关键字），使用columnOverride覆盖
+     -->
+    <property name="autoDelimitKeywords" value="false"/>
+    <!-- 生成的Java文件的编码 -->
+    <property name="javaFileEncoding" value="UTF-8"/>
+    <!-- 格式化java代码 -->
+    <property name="javaFormatter" value="org.mybatis.generator.api.dom.DefaultJavaFormatter"/>
+    <!-- 格式化XML代码 -->
+    <property name="xmlFormatter" value="org.mybatis.generator.api.dom.DefaultXmlFormatter"/>
+
+    <!-- beginningDelimiter和endingDelimiter：指明数据库的用于标记数据库对象名的符号，比如ORACLE就是双引号，MYSQL默认是`反引号； -->
+    <property name="beginningDelimiter" value="`"/>
+    <property name="endingDelimiter" value="`"/>
+    
+
+  	<commentGenerator>
+  		<property name="suppressAllComments" value="true"/><!-- 取消生成的注释信息 -->
+  	</commentGenerator>
+  	
+    <jdbcConnection 
+    	driverClass="com.mysql.jdbc.Driver" 
+    	connectionURL="jdbc:mysql://192.16.3.72:3306/shirodb" 
+    	userId="shiro" password="123456qw" />
+
+    <!-- java类型处理器 
+        用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
+        注意一点，默认会先尝试使用Integer，Long，Short等来对应DECIMAL和 NUMERIC数据类型； 
+    -->
+    <javaTypeResolver type="org.mybatis.generator.internal.types.JavaTypeResolverDefaultImpl">
+        <!-- 
+            true：使用BigDecimal对应DECIMAL和 NUMERIC数据类型
+            false：默认,
+                scale>0;length>18：使用BigDecimal;
+                scale=0;length[10,18]：使用Long；
+                scale=0;length[5,9]：使用Integer；
+                scale=0;length<5：使用Short；
+         -->
+        <property name="forceBigDecimals" value="false"/>
+    </javaTypeResolver>
+
+    <javaModelGenerator targetPackage="com.zm.web.db.model" targetProject="springbootshiro/src/main/java" />
+    
+    <sqlMapGenerator targetPackage="mybatis.sqlMap" targetProject="springbootshiro/src/main/resources" />
+    
+     <!-- 对于mybatis来说，即生成Mapper接口，注意，如果没有配置该元素，那么默认不会生成Mapper接口 
+        targetPackage/targetProject:同javaModelGenerator
+        type：选择怎么生成mapper接口（在MyBatis3/MyBatis3Simple下）：
+            1，ANNOTATEDMAPPER：会生成使用Mapper接口+Annotation的方式创建（SQL生成在annotation中），不会生成对应的XML；
+            2，MIXEDMAPPER：使用混合配置，会生成Mapper接口，并适当添加合适的Annotation，但是XML会生成在XML中；
+            3，XMLMAPPER：会生成Mapper接口，接口完全依赖XML；
+        注意，如果context是MyBatis3Simple：只支持ANNOTATEDMAPPER和XMLMAPPER
+    -->
+   <javaClientGenerator targetPackage="com.zm.web.db.dao" type="XMLMAPPER" targetProject="springbootshiro/src/main/java">
+        <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
+        <property name="enableSubPackages" value="true"/>
+
+        <!-- 可以为所有生成的接口添加一个父接口，但是MBG只负责生成，不负责检查
+        <property name="rootInterface" value=""/>
+         -->
+    </javaClientGenerator>
+    
+    <table schema="edu" tableName="t_user" 
+    	enableCountByExample="false" enableUpdateByExample="false" 
+    	enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
+      <!-- <columnOverride column="???" property="???" /> -->
+    </table>
+    
+    
+  </context>
+</generatorConfiguration>
