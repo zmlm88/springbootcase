@@ -13,7 +13,7 @@
 				用户<c:choose>
 					<c:when test="${ userOper == 'ADD'}">添加</c:when>
 					<c:when test="${ userOper == 'VIEW'}">查看</c:when>
-					<c:when test="${ userOper == 'MODIFY'}">修改</c:when>
+					<c:when test="${ userOper == 'MODIFY'}">编辑</c:when>
 					<c:otherwise>未知</c:otherwise>
 				</c:choose>
 			</a>

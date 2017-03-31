@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,7 @@ import com.zm.web.configuration.mybatis.Page;
 import com.zm.web.configuration.shiro.MyShiroRealm.ShiroUser;
 import com.zm.web.cst.Const;
 import com.zm.web.db.model.TUser;
-import com.zm.web.util.CustUtils;
+import com.zm.web.vo.ResultVo;
 
 @Controller
 @RequestMapping("/web/sys/user")
@@ -37,11 +38,32 @@ public class UserController extends BaseController {
 		final String userName = (String) param.get("userName");
 		Integer pageNumber = (Integer) param.get("pageNumber");
 		Integer limit = (Integer) param.get("limit");
-
 		this.sessionSetAttribute(session, "userListUserName", userName);
 		return tUserMapperService.selectByUserPage(userName, pageNumber, limit);
 	}
 
+	
+	/**
+	 * 根据角色id和数据权限 ，查询用户
+	 * @param userId
+	 * @return
+	 */
+	@RequestMapping(value = "/selectUserByRoleAndCodeDataPage", method = RequestMethod.POST)
+	@ResponseBody
+	public Page<TUser> selectUserByRoleAndCodeDataPage(@RequestBody Map<String, Object> param, HttpSession session) {
+		final String roleId = (String) param.get("roleId");
+		ShiroUser shiroUser = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
+		final String codeDate= shiroUser.getTuser().getCodeData();
+		final String userName = (String) param.get("userName");
+		Integer pageNumber = (Integer) param.get("pageNumber");
+		Integer limit = (Integer) param.get("limit");
+		this.sessionSetAttribute(session, "userListUserName", userName);
+		return tUserMapperService.selectUserByRoleAndCodeDataPage(roleId,codeDate,userName, pageNumber, limit);		
+		
+	}
+	
+	
+	
 	@RequestMapping(value = "/form")
 	public String form(TUser userReq, Model model, @RequestParam("userOper") String userOper) {
 		String id = userReq.getId();
@@ -64,23 +86,11 @@ public class UserController extends BaseController {
 		if (StringUtils.isNotEmpty(userOper)) {
 			try{
 				if (Const.OPER_STATUS.ADD.toString().equals(userOper)) {
-					user.setId(CustUtils.genReqID());
-					user.setPassword(CustUtils.genPassword(user.getPassword()));
-					this.tUserMapperService.insertSelective(user);
+					//添加用户
+					this.tUserMapperService.addUserService(user);
 					this.addMessage(redirectAttributes, "添加用户成功!");
 				} else if (Const.OPER_STATUS.MODIFY.equals(userOper)) {
-					String password = user.getPassword();
-					if(StringUtils.isNotEmpty(password)){
-						String md5Passwd = CustUtils.genPassword(password);
-						ShiroUser userInfo = (ShiroUser) SecurityUtils.getSubject().getPrincipal();
-						userInfo.decrypt();
-						TUser userT = userInfo.getTuser();
-						if(!md5Passwd.equals(userT.getPassword())){
-							user.setPassword(md5Passwd);
-						}
-						userInfo.encrypt();
-					}
-					this.tUserMapperService.updateByPrimaryKeySelective(user);
+					this.tUserMapperService.updateUserService(user);
 					this.addMessage(redirectAttributes, "修改用户成功!");
 				}
 			}catch(Exception e){
@@ -91,4 +101,17 @@ public class UserController extends BaseController {
 		return "redirect:/web/sys/user/index";
 	}
 
+	/**
+	 * 删除用户
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/del/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public ResultVo del(@PathVariable String id){
+		int result = this.tUserMapperService.deleteByPrimaryKey(id);
+		if(result == 1)
+			return new ResultVo(true,"操作成功");
+		return new ResultVo(false,"操作失败"); 
+	}
 }

@@ -1,8 +1,10 @@
 package com.zm.web.service;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
@@ -12,6 +14,8 @@ import com.zm.web.configuration.shiro.MyShiroRealm.ShiroUser;
 import com.zm.web.cst.Const;
 import com.zm.web.db.model.TMenu;
 import com.zm.web.db.model.TUser;
+import com.zm.web.db.model.TUserRole;
+import com.zm.web.util.CustUtils;
 import com.zm.web.util.menu.ModeList;
 
 @Service
@@ -37,7 +41,7 @@ public class TUserMapperService extends BaseService {
 		try {
 			if (!StringUtils.isEmpty(shiroUser)) {
 				// 获取权限
-				List<TMenu> tMenuList = tMenuMapper.selectMenuByUser(shiroUser.getId());
+				List<TMenu> tMenuList = tMenuMapper.selectMenuByUserIdAndRole(shiroUser.getId());
 				if (!CollectionUtils.isEmpty(tMenuList)) {
 					shiroUser.settMenuList(tMenuList);
 					// 设置权限树
@@ -71,6 +75,27 @@ public class TUserMapperService extends BaseService {
 		});
 		return page;
 	}
+	
+	
+	
+	/**
+	 * 根据角色id和数据权限 ，查询用户
+	 * @param userId
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
+	public Page<TUser> selectUserByRoleAndCodeDataPage(final String roleId,final String codeDate,final String userName,int pageNo,int pageCount){
+		Page<TUser> page = (Page<TUser>)mybatisPaginationTemplate.setStartAndLength(pageNo, pageCount).execute(new MybatisPaginationCallback() {
+			public <T> List<T> doPagination(Page<?> page) {
+				return (List<T>) tUserMapper.selectUserByRoleAndCodeDataPage(roleId,codeDate,userName, page);
+			}
+		});
+		return page;
+	}
+	
+	
+	
+	
 	/**
 	 * 根据用户
 	 * @param id
@@ -90,11 +115,59 @@ public class TUserMapperService extends BaseService {
 	}
 	
 	/**
+	 * 添加用户Service
+	 * @param tuser
+	 */
+	@Transactional
+	public void addUserService(TUser user){
+		user.setId(CustUtils.genReqID());
+		user.setPassword(CustUtils.genPassword(user.getPassword()));
+		insertSelective(user);
+		//添加用户和角色的关系
+		TUserRole tUserRole = new TUserRole();
+		tUserRole.setUserId(user.getId());
+		tUserRole.setRoleId(Const.INIT_USER_ROLE_ID);
+		tUserRole.setStatus(Const.STATUS.VAILDATE.getIndex()+"");
+		tUserRoleMapper.insert(tUserRole);
+	}
+	
+	/**
+	 * 更新用户Service
+	 * @param tuser
+	 * @throws UnsupportedEncodingException 
+	 */	
+	@Transactional
+	public void updateUserService(TUser user) throws UnsupportedEncodingException{
+		String password = user.getPassword();
+		if(StringUtils.isEmpty(password)){
+			String md5Passwd = CustUtils.genPassword(password);
+			TUser tUser = this.tUserMapper.selectByPrimaryKey(user.getId());
+			if(!md5Passwd.equals(tUser.getPassword())){
+				user.setPassword(md5Passwd);
+			}
+		}
+		updateByPrimaryKeySelective(user);
+		
+		
+	}
+	
+	
+	/**
 	 * 更新用户
 	 * @param tuser
 	 * @return
 	 */
 	public int updateByPrimaryKeySelective(TUser tuser){
 		return this.tUserMapper.updateByPrimaryKeySelective(tuser);
+	}
+	
+	/**
+	 * 根据id删除用户
+	 * @param id
+	 * @return
+	 */
+	@Transactional
+	public int deleteByPrimaryKey(String id){
+		return this.tUserMapper.deleteByPrimaryKey(id);
 	}
 }

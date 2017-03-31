@@ -2,6 +2,7 @@ package com.zm.web.service;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
@@ -52,5 +53,23 @@ public class TMenuMapperService extends BaseService {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * 根据用户ID角色查询menu信息
+	 * @param userId
+	 * @return
+	 */
+	public List<TMenu> selectMenuByUserIdAndRole(String userId){
+		
+		return this.tMenuMapper.selectMenuByUserIdAndRole(userId);
+	}
+	
+	/**
+	 * 根据角色查出菜单
+	 * @param roleId
+	 * @return
+	 */
+	public List<TMenu> selectMenuByRoleId(String roleId){
+		return this.tMenuMapper.selectMenuByRoleId(roleId);
+	}
 }

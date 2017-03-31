@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * 
- * http://www.jb51.net/article/60965.htm --bootstrap page
  * @author zmlm88@126.com
  *
  */

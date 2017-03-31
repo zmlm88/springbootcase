@@ -2,6 +2,7 @@
 <link href="${ctxStatic}/bootstrapTable/dist/bootstrap-table.css" rel="stylesheet" />
 <script src="${ctxStatic}/bootstrapTable/dist/bootstrap-table.js" type="text/javascript"></script>
 <script src="${ctxStatic}/bootstrapTable/dist/locale/bootstrap-table-zh-CN.js" type="text/javascript"></script>
+<script src="${ctxStatic}/bootstrapTable/dist/extensions/editable/bootstrap-table-editable.js" type="text/javascript"></script>
 <style>
 /* Base class */
 .bs-form-title {

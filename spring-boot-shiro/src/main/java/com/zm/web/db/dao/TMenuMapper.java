@@ -19,5 +19,7 @@ public interface TMenuMapper {
 
 	int updateByPrimaryKey(TMenu record);
 
-	public List<TMenu> selectMenuByUser(@Param("userId") String userId);
+	public List<TMenu> selectMenuByUserIdAndRole(@Param("userId") String userId);
+	
+	public List<TMenu> selectMenuByRoleId(@Param("roleId") String roleId);
 }

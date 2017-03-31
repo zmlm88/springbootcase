@@ -9,7 +9,6 @@
 		
        
   	 <c:if test="${not empty message }">	
-      	//$.jBox.tip("正在XX，你懂的...", 'loading');
    		// 模拟2秒后完成操作
    		window.setTimeout(function () { $.jBox.tip('${message}', 'success'); }, 3000);
       </c:if>
@@ -39,11 +38,32 @@
  	function forwardEdit(id){
  		window.location.href='${ctx}/web/sys/user/form?userOper=MODIFY&id='+id;
  	}
+ 	
+ 	function forwardDel(id){
+ 		var submit = function (v, h, f) {
+ 			if (v == 'ok'){
+ 				$.ajax({
+ 						url: "<c:url value='/web/sys/user/del'/>"+"/"+id,
+ 						success: function(data){
+ 					  		$.jBox.tip(data.result.message, data.result.message);
+ 					  		$('#cusTable').bootstrapTable('refresh');
+ 					  	}
+ 				});
+ 			
+ 			}   
+ 			 else if (v == 'cancel'){
+ 			   // jBox.tip("cancel", 'info');
+ 			}
+ 			return true; //close
+ 		};
+
+	  $.jBox.confirm("是否删除?", "提示", submit);
+ 	}
 		
     
     function operFormatter(value, row, index){
         var str =[
-                     '<a class="like" href="javascript:void(0)" title="删除">',
+                     '<a class="like" href="javascript:void(0)" onclick="forwardDel('+"'"+row.id+"'"+');" title="删除">',
                      '<i class="icon-remove">删除</i>',
                      '</a>  ',
                      '<a class="remove" href="javascript:void(0)" onclick="forwardEdit('+"'"+row.id+"'"+');" title="编辑">',
@@ -88,7 +108,9 @@
     <table id="cusTable"
            data-toggle="table">
     </table>
-        
+
+
+ 
 
 
 </body>

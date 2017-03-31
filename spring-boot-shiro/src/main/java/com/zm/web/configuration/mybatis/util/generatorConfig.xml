@@ -68,7 +68,7 @@
          -->
     </javaClientGenerator>
     
-    <table schema="edu" tableName="t_user" 
+    <table schema="edu" tableName="t_role_menu" 
     	enableCountByExample="false" enableUpdateByExample="false" 
     	enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false">
       <!-- <columnOverride column="???" property="???" /> -->

@@ -5,41 +5,52 @@ import java.io.Serializable;
 public class TUser implements Serializable{
     private String id;
 
-    private String userName;
+	private String userName;
 
-    private String password;
+	private String password;
 
-    private String status;
+	private String status;
 
-    public String getId() {
-        return id;
-    }
+	private String codeData;
 
-    public void setId(String id) {
-        this.id = id;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getUserName() {
-        return userName;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public String getUserName() {
+		return userName;
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getStatus() {
-        return status;
-    }
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
-    public void setStatus(String status) {
-        this.status = status;
-    }
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getCodeData() {
+		return codeData;
+	}
+
+	public void setCodeData(String codeData) {
+		this.codeData = codeData;
+	}
+
 }

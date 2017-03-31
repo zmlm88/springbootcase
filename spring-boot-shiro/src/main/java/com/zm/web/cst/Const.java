@@ -24,8 +24,12 @@ public class Const {
 	/** shiro 权限缓存 */
 	public static final String USER_ALL_MENU_SHIRO = "USER_ALL_MENU_SHIRO";
 
+	/** 初始化用户角色 */
+	public static final String INIT_USER_ROLE_ID = "1";
+
 	/**
 	 * 新增操作变量
+	 * 
 	 * @author zhumin
 	 *
 	 */
@@ -43,7 +47,72 @@ public class Const {
 
 		// 普通方法
 		public static String getName(int index) {
-			for (RETURN_STATUS c : RETURN_STATUS.values()) {
+			for (OPER_STATUS c : OPER_STATUS.values()) {
+				if (c.getIndex() == index) {
+					return c.name;
+				}
+			}
+			return null;
+		}
+
+		public static String getEnumName(String enumName) {
+			String str = "";
+			switch (enumName) {
+			case "ADD":
+				str = OPER_STATUS.ADD.name;
+				break;
+			case "MODIFY":
+				str = OPER_STATUS.MODIFY.name;
+				break;
+			case "VIEW":
+				str = OPER_STATUS.VIEW.name;
+				break;
+			default:
+				str = "";
+				break;
+			}
+			return str;
+		}
+
+		// get set 方法
+		public String getName() {
+			return name;
+		}
+
+		public void setName(String name) {
+			this.name = name;
+		}
+
+		public int getIndex() {
+			return index;
+		}
+
+		public void setIndex(int index) {
+			this.index = index;
+		}
+
+	}
+
+	/**
+	 * 表状态 操作状态 有效-1,无效-2
+	 * 
+	 * @author zhumin
+	 *
+	 */
+	public enum STATUS {
+		VAILDATE("有效", 1), INVAILDATE("无效", 2);
+		private String name;
+		private int index;
+
+		// 构造方法
+		private STATUS(String name, int index) {
+			this.name = name;
+			this.index = index;
+		}
+
+		// 普通方法
+		public static String getName(int index) {
+			for (STATUS c : STATUS.values()) {
 				if (c.getIndex() == index) {
 					return c.name;
 				}

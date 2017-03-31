@@ -8,20 +8,26 @@ import com.zm.web.configuration.mybatis.Page;
 import com.zm.web.db.model.TUser;
 
 public interface TUserMapper {
-	int deleteByPrimaryKey(String id);
+    int deleteByPrimaryKey(String id);
 
-	int insert(TUser record);
+    int insert(TUser record);
 
-	int insertSelective(TUser record);
+    int insertSelective(TUser record);
 
-	TUser selectByPrimaryKey(String id);
+    TUser selectByPrimaryKey(String id);
 
-	int updateByPrimaryKeySelective(TUser record);
+    int updateByPrimaryKeySelective(TUser record);
 
-	int updateByPrimaryKey(TUser record);
-
+    int updateByPrimaryKey(TUser record);
+    
+    
 	List<TUser> selectByUserName(@Param("userName") String userName);
 
 	
-	List<TUser> selectByUserPage(@Param("userName") String userId, Page<?> page); 
+	List<TUser> selectByUserPage(@Param("userName") String userId, Page<?> page);
+	//角色查询用户
+	List<TUser> selectRoleUser(@Param("roleId") String roleId);
+	
+	//根据角色id和数据权限 ，查询用户
+	List<TUser> selectUserByRoleAndCodeDataPage(@Param("roleId") String roleId,@Param("codeData") String codeDate,@Param("userName") String userName, Page<?> page);
 }

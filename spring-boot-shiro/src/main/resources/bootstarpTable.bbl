@@ -1,6 +1,6 @@
-		$(function () {
-			${tableFunName};	 	
-		});
+	$(function () {
+		${tableFunName};	 	
+	});
 
 	function ${queryParams}(pageReqeust){
 		${paramsb}
