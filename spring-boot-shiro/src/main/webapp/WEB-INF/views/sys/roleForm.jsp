@@ -6,12 +6,8 @@
 	<meta name="decorator" content="default"/>
 	<%@include file="/WEB-INF/views/include/treeview.jsp" %>
 	<script type="text/javascript">
-	<c:if test="${not empty roleFormMessage }">	
-		closeLoading();
-		parent.location.href = '<c:url value="/web/sys/role/index" />';
-	</c:if>
-	
-	
+
+
 	$(document).ready(function(){
 		
 		
@@ -118,3 +114,4 @@
 
 </body>
 </html>
+ 

@@ -3,7 +3,12 @@ package com.zm.web.db.model;
 import java.io.Serializable;
 
 public class TMenu implements Serializable{
-    private String id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String id;
 
     private String parentid;
 

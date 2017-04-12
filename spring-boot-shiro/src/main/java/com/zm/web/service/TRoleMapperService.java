@@ -124,6 +124,7 @@ public class TRoleMapperService extends BaseService {
 			TRoleMenu tRoleMenu = new TRoleMenu();
 			tRoleMenu.setMenuId(menu);
 			tRoleMenu.setRoleId(roleId);
+			tRoleMenu.setStatus(Const.STATUS.VAILDATE.getIndex()+"");
 			tRoleMenuMapper.insert(tRoleMenu);
 		}
 		
@@ -143,5 +144,22 @@ public class TRoleMapperService extends BaseService {
 		tRoleMenuMapper.deleteRoleMenuByRoleId(roleId);
 	}
 	
+    /**
+     * 根据用户id查询角色信息
+     * @param userId
+     * @return
+     */
+	public  List<TRole>  selectRoleListByCreateUserId(String userId){
+		return tRoleMapper.selectRoleListByCreateUserId(userId);
+	}
+	
+    /**
+     * 根据用户id查询角色信息(从t_user_role 中关联查询)
+     * @param userId
+     * @return
+     */
+    public List<TRole>  selectRoleListByUserId(String userId){
+    	return tRoleMapper.selectRoleListByUserId(userId);
+    }
 	
 }

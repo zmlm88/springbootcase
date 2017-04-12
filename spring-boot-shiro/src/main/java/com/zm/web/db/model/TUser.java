@@ -3,7 +3,12 @@ package com.zm.web.db.model;
 import java.io.Serializable;
 
 public class TUser implements Serializable{
-    private String id;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	private String id;
 
 	private String userName;
 
@@ -13,6 +18,8 @@ public class TUser implements Serializable{
 
 	private String codeData;
 
+	private String[] roleIds; 
+	
 	public String getId() {
 		return id;
 	}
@@ -51,6 +58,14 @@ public class TUser implements Serializable{
 
 	public void setCodeData(String codeData) {
 		this.codeData = codeData;
+	}
+
+	public String[] getRoleIds() {
+		return roleIds;
+	}
+
+	public void setRoleIds(String[] roleIds) {
+		this.roleIds = roleIds;
 	}
 
 }

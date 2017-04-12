@@ -119,9 +119,13 @@ public class TUserMapperService extends BaseService {
 	 * @param tuser
 	 */
 	@Transactional
-	public void addUserService(TUser user){
+	public void addUserService(TUser user,TUser operUser){
 		user.setId(CustUtils.genReqID());
 		user.setPassword(CustUtils.genPassword(user.getPassword()));
+		//设置用户的读取权限
+		user.setCodeData(genCodeData(operUser.getCodeData()));
+		//设置状态
+		user.setStatus(Const.STATUS.VAILDATE.getIndex()+"");
 		insertSelective(user);
 		//添加用户和角色的关系
 		TUserRole tUserRole = new TUserRole();
@@ -129,7 +133,30 @@ public class TUserMapperService extends BaseService {
 		tUserRole.setRoleId(Const.INIT_USER_ROLE_ID);
 		tUserRole.setStatus(Const.STATUS.VAILDATE.getIndex()+"");
 		tUserRoleMapper.insert(tUserRole);
+		for(String role :user.getRoleIds()){
+			if(role.equals(Const.INIT_USER_ROLE_ID))
+				continue;
+			tUserRole = new TUserRole();
+			tUserRole.setUserId(user.getId());
+			tUserRole.setRoleId(role);
+			tUserRole.setStatus(Const.STATUS.VAILDATE.getIndex()+"");
+			tUserRoleMapper.insert(tUserRole);	
+		}
+		
 	}
+	/**
+	 * 生成读取权限
+	 * @param operUserCodeData
+	 * @return
+	 */
+	public String genCodeData(String operUserCodeData){
+		String codeData = operUserCodeData+CustUtils.randCodeData();
+		int count = tUserMapper.selectCountByCodeData(codeData);
+		if(count >0)
+			genCodeData(operUserCodeData);
+		return codeData;
+	}
+	
 	
 	/**
 	 * 更新用户Service

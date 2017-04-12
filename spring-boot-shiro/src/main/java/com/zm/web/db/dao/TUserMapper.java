@@ -30,4 +30,7 @@ public interface TUserMapper {
 	
 	//根据角色id和数据权限 ，查询用户
 	List<TUser> selectUserByRoleAndCodeDataPage(@Param("roleId") String roleId,@Param("codeData") String codeDate,@Param("userName") String userName, Page<?> page);
+	
+	//根据codeData查询用户数量
+	int selectCountByCodeData(@Param("codeData") String codeData);
 }

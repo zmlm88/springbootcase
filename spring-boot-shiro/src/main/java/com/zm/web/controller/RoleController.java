@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.zm.web.configuration.shiro.MyShiroRealm.ShiroUser;
@@ -77,7 +76,7 @@ public class RoleController extends BaseController {
 		return "sys/roleForm";
 	}
 	/**
-	 * 角色管理
+	 * 角色管理(添加)
 	 * @param model
 	 * @param rv
 	 * @param request
@@ -96,7 +95,7 @@ public class RoleController extends BaseController {
 			redirectAttributes.addFlashAttribute("roleFormMessage", "角色"+roleOperName+"失败");
 		}
 
-		return "redirect:/web/sys/role/roleForm";
+		return "redirect:/web/sys/role/tree";
 	}
 	
 	/**
@@ -111,7 +110,7 @@ public class RoleController extends BaseController {
 		}catch(Exception e){
 			redirectAttributes.addFlashAttribute("roleFormMessage", "角色删除失败");
 		}
-		return "redirect:/web/sys/role/roleForm";
+		return "redirect:/web/sys/role/tree";
 	}
 	
 }

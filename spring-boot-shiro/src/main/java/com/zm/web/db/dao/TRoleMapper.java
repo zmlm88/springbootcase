@@ -33,5 +33,19 @@ public interface TRoleMapper {
      */
     List<TRole> selectRoleListByUserCodeData(@Param("codeData")String codeData);
     
+    /**
+     * 根据用户id查询角色信息
+     * @param userId
+     * @return
+     */
+    List<TRole> selectRoleListByCreateUserId(@Param("userId")String userId);
+    
+    
+    /**
+     * 根据用户id查询角色信息(从t_user_role 中关联查询)
+     * @param userId
+     * @return
+     */
+    List<TRole>  selectRoleListByUserId(@Param("userId")String userId);
     
 }

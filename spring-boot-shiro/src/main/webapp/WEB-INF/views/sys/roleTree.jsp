@@ -11,7 +11,24 @@
 		.ztree li ul.level0 {padding:0;background:none;}--%>
 		.accordion-inner{padding:2px;}
 	</style>
+	
 	<script type="text/javascript">
+		loading("加载中...");
+		closeLoading();
+		
+		<c:if test="${not empty roleFormMessage }">	
+		document.write("系统加载中。。。。");
+		parent.location.href = '<c:url value="/web/sys/role/index" />';
+		</c:if>	
+	</script>
+	
+	<c:if test="${ empty roleFormMessage }">	
+	<script type="text/javascript">
+
+
+	
+	
+	
 		var tree,key,lastValue="";  
 		var setting = {
 				data: {
@@ -235,7 +252,7 @@
 			<div class="accordion-heading">
 		    	<a class="accordion-toggle">角色 &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 		    		<i class="icon-refresh" onclick="refreshTree();"></i>
-		    		<i class="icon-remove" id="remove" alt="添加角色" ></i>
+		    		<i class="icon-remove" id="remove" alt="刪除角色" ></i>
 		    		<i class="icon-plus" id="add" alt="添加角色" ></i>
 		    		<i class="icon-edit" id="modify" alt="编辑角色" ></i>
 		    		<i class="icon-search" onclick="search();"></i><label id="txt"></label>
@@ -259,4 +276,5 @@
  
 	</div>
 </body>
+</c:if>
 </html>

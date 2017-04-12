@@ -71,8 +71,14 @@ public class UserController extends BaseController {
 			if (userOper.equals(Const.OPER_STATUS.VIEW.toString()) || userOper.equals(Const.OPER_STATUS.MODIFY.toString())) {
 				TUser user = tUserMapperService.selectByPrimaryKey(id);
 				model.addAttribute("user", user);
+				//查看或修改用户的角色
+				model.addAttribute("userRoles",tRoleMapperService.selectRoleListByUserId(id));
+			}else if(userOper.equals(Const.OPER_STATUS.ADD.toString())){
+				
 			}
 		}
+		//当前操作用户角色
+		model.addAttribute("userOperRoles",tRoleMapperService.selectRoleListByCreateUserId(getShiroUser().getTuser().getId()));
 		model.addAttribute("userOper", userOper);
 		return "sys/userForm";
 	}
@@ -87,7 +93,7 @@ public class UserController extends BaseController {
 			try{
 				if (Const.OPER_STATUS.ADD.toString().equals(userOper)) {
 					//添加用户
-					this.tUserMapperService.addUserService(user);
+					this.tUserMapperService.addUserService(user,getShiroUser().getTuser());
 					this.addMessage(redirectAttributes, "添加用户成功!");
 				} else if (Const.OPER_STATUS.MODIFY.equals(userOper)) {
 					this.tUserMapperService.updateUserService(user);

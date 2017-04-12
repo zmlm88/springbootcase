@@ -60,6 +60,14 @@
 
 
 
+
+	<select id="selectCountByCodeData"  resultType="int">
+		select count(1)  
+		from t_user where code_data = #{codeData,jdbcType=VARCHAR}
+	</select>
+
+
+
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.String">
 		select

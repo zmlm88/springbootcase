@@ -62,6 +62,16 @@ public class CustUtils {
 		
 		return hex;
 	}
-	
-
+	/**
+	 * 返回随机数
+	 * @return
+	 */
+	public static String randCodeData(){
+		String dataCode = "";
+		 java.util.Random r=new java.util.Random(); 
+		 for(int i=0;i<5;i++){
+			 dataCode = dataCode.concat(r.nextInt(10)+"");
+		 }
+		 return dataCode;
+	}
 }

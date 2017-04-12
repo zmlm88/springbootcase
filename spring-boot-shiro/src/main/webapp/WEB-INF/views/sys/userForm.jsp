@@ -4,6 +4,27 @@
 <head>
 	<title>用户管理</title>
 	<meta name="decorator" content="default"/>
+	<script type="text/javascript">
+		$.validator.addMethod('atLeastOneChecked', function(value, element) { 
+		var checkedCount = 0; 
+		 $("[name = roleIds]:checkbox").each(function() {
+		if ($(this).attr('checked')) { checkedCount++; } 
+		}); 
+		return checkedCount>0; 
+		},"请选择至少一项"); 	
+	
+		$(document).ready(function() {	
+			$("#inputForm").validate({
+				rules: {
+					roleIds: {
+						required: function(element) {
+							atLeastOneChecked: true
+						}
+					}
+				}
+			});
+		});
+	</script>	
 </head>
 <body>
 	<ul class="nav nav-tabs">
@@ -36,17 +57,38 @@
 				<input  type="password" htmlEscape="false" maxlength="50" class="required" name="password"/>
 				<span class="help-inline"><font color="red">*</font> </span>
 			</div>
+		</div>			
+		<div class="control-group">
+			<label class="control-label">用户角色:</label>
+			<div class="controls">
+			<c:forEach items="${userOperRoles}" var="userOperRoles" varStatus="status">
+				<c:if test="${status.index %5 ==0 && status.index>0}">
+					<br/>
+				</c:if>
+	            <input  type="checkbox"  name="roleIds" value="${userOperRoles.id}"  <c:if test="${userOperRoles.id == '1' }">checked="checked"</c:if>/>${userOperRoles.name}
+	         </c:forEach>
+				<span class="help-inline"><font color="red">*</font> </span>
+			</div>
 		</div>				
+			
 		
 		<div class="form-actions">
 			<input id="btnSubmit" class="btn btn-primary" type="submit" value="保 存"/>&nbsp;
 			<input id="btnCancel" class="btn" type="button" value="返 回" onclick="history.go(-1)"/>
 		</div>		
 		
-		
-		
 	</form:form>
-
+	
+	<script type="text/javascript">
+		   $("[name = roleIds]:checkbox").each(function () {
+				var roleValue=$(this).val();
+				<c:forEach  items="${userRoles}" var="userRoles">
+					if(roleValue == '${userRoles.id}'){
+						$(this).attr('checked',true);   
+					}
+				</c:forEach>
+		    });
+	</script>
 
 
 </body>
