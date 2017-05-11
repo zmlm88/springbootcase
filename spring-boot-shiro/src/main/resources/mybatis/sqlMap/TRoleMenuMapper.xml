@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zm.web.db.dao.TRoleMenuMapper" >
+  <resultMap id="BaseResultMap" type="com.zm.web.db.model.TRoleMenu" >
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <result column="menu_id" property="menuId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="VARCHAR" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zm.web.db.model.TRoleMenu" >
+    insert into t_role_menu (role_id, menu_id, status
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{menuId,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zm.web.db.model.TRoleMenu" >
+    insert into t_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="menuId != null" >
+        menu_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="menuId != null" >
+        #{menuId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <delete id="deleteRoleMenuByRoleId" parameterType="java.lang.String" >
+  	 delete from t_role_menu where role_id =  #{roleId,jdbcType=VARCHAR}
+  </delete>
+  
+  
+</mapper>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zm.web.db.dao.TUserRoleMapper" >
+  <resultMap id="BaseResultMap" type="com.zm.web.db.model.TUserRole" >
+    <result column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.zm.web.db.model.TUserRole" >
+    insert into t_user_role (role_id, user_id, status
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zm.web.db.model.TUserRole" >
+    insert into t_user_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        role_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <delete id="deleteUserRoleByRoleId" parameterType="java.lang.String">
+  	 delete from t_user_role where role_id =   #{roleId,jdbcType=INTEGER}
+  </delete>
+  
+  
+  
+</mapper>

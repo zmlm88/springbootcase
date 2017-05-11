@@ -1,0 +1,119 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.1.RELEASE'
+    }
+
+    repositories {
+        maven { url "http://repo.spring.io/libs-milestone" }
+        mavenCentral()
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}") 
+        classpath("io.spring.gradle:dependency-management-plugin:0.5.1.RELEASE")
+    }
+
+}
+
+
+
+apply plugin: 'java'
+
+apply plugin: 'eclipse-wtp'
+
+apply plugin: 'idea'
+
+apply plugin: 'org.springframework.boot' 
+
+apply plugin: 'io.spring.dependency-management' 
+
+apply plugin: 'war'
+
+configurations.all {
+    resolutionStrategy.cacheChangingModulesFor 0, 'seconds'
+    resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
+}
+
+
+
+war {
+
+    baseName = 'springboot'
+
+    version = '0.0.1-SNAPSHOT'
+
+}
+
+sourceCompatibility = 1.7
+
+targetCompatibility = 1.7
+
+
+
+repositories {
+
+    mavenCentral()
+
+    maven { url "http://repo.spring.io/libs-milestone" }
+
+}
+
+
+
+configurations {
+    providedRuntime
+}
+
+dependencies {
+    compile("javax.servlet:jstl:1.2")
+    runtime("mysql:mysql-connector-java")
+    compile("org.springframework.boot:spring-boot-starter-jdbc")
+    compile ("org.springframework.boot:spring-boot-starter-web")
+    compile ("org.springframework.boot:spring-boot-starter-aop")
+    compile ("org.springframework.boot:spring-boot-starter-actuator")
+    providedRuntime("org.springframework.boot:spring-boot-starter-tomcat")
+    providedRuntime ("org.apache.tomcat.embed:tomcat-embed-jasper")
+    providedRuntime ("javax.servlet:javax.servlet-api")
+   	compile("opensymphony:sitemesh:2.4.2")
+	compile("com.alibaba:druid:1.0.28")
+ 	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1")
+ 	  	
+
+ 	compile("com.alibaba:druid:1.0.28")
+ 	compile("com.google.guava:guava:17.0")
+ 	compile("org.apache.commons:commons-lang3:3.1")
+ 	
+    compile("org.apache.shiro:shiro-core:1.3.2")
+ 	compile("org.apache.shiro:shiro-web:1.3.2")
+	compile("org.apache.shiro:shiro-spring:1.3.2")
+	compile("org.apache.shiro:shiro-ehcache:1.3.2")
+	
+	compile("com.ibeetl:beetl:2.2.5")
+	compile group: 'org.jdom', name: 'jdom', version: '1.1.3'
+	
+	compile group: 'org.springframework.data', name: 'spring-data-hadoop', version: '2.4.0.RELEASE'
+	
+	compile group: 'org.apache.hbase', name: 'hbase-client', version: '1.3.0'
+	
+ 	providedRuntime("junit:junit")
+ 	
+	providedRuntime("org.springframework.boot:spring-boot-devtools")
+
+}
+
+
+
+eclipse {
+    classpath {
+         containers.remove('org.eclipse.jdt.launching.JRE_CONTAINER')
+         containers 'org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7'
+    }
+}
+
+
+
+task wrapper(type: Wrapper) {
+
+    gradleVersion = '2.3'
+
+}
