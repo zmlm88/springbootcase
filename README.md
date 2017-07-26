@@ -8,4 +8,11 @@
 6.springboot+mybatis+bootstraptable 集成 【完成】<br/> 
 7.用jsptaglib 简易封装bootstraptable      【完成】<br/> 
 8.用户权限功能简单实现                      【完成】<br/> 
+9.分页控件添加ThradLocal解决高并发问题      【完成】<br/> 
+10.添加雪花算法生产19位订单                 【完成】<br/> 
+
+计划
+1.另起项目开发oaulth
+
+
 联系方式:zmlm88@126.com    码农zmlm88
