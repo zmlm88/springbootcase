@@ -100,7 +100,7 @@
 			</div>
 		</div>
 		<div class="copyrights">
-		Copyright &copy;  - Powered By  善林科技
+		Copyright &copy;  - Powered By  
 		</div>
 	</div>
 
